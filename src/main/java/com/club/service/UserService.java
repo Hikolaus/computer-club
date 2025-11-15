@@ -4,6 +4,7 @@ import com.club.domain.User;
 import com.club.dto.UserDto;
 import org.springframework.stereotype.Service;
 import java.util.*;
+import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
@@ -18,6 +19,7 @@ public class UserService {
         admin.setName("Администратор");
         admin.setEmail("admin@club.ru");
         admin.setRole("admin");
+        admin.setDateRegistered(LocalDateTime.now());
         users.put(admin.getId(), admin);
 
         User client = new User();
@@ -25,6 +27,7 @@ public class UserService {
         client.setName("Иван Иванов");
         client.setEmail("client@mail.ru");
         client.setRole("client");
+        client.setDateRegistered(LocalDateTime.now());
         users.put(client.getId(), client);
     }
 
@@ -45,8 +48,19 @@ public class UserService {
         user.setName(userDto.getName());
         user.setEmail(userDto.getEmail());
         user.setRole("client");
+        user.setDateRegistered(LocalDateTime.now());
         users.put(user.getId(), user);
         return convertToDto(user);
+    }
+
+    public UserDto updateUser(Long id, UserDto userDto) {
+        User user = users.get(id);
+        if (user != null) {
+            user.setName(userDto.getName());
+            user.setEmail(userDto.getEmail());
+            return convertToDto(user);
+        }
+        return null;
     }
 
     private UserDto convertToDto(User user) {
@@ -55,6 +69,7 @@ public class UserService {
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
         dto.setRole(user.getRole());
+        dto.setDateRegistered(user.getDateRegistered());
         return dto;
     }
 }
