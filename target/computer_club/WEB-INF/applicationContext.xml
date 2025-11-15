@@ -7,10 +7,8 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- Component scanning for services -->
     <context:component-scan base-package="com.club.service"/>
 
-    <!-- Properties configuration -->
     <context:property-placeholder location="classpath:application.properties"/>
 
 </beans>
